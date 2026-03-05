@@ -1,0 +1,30 @@
+# Ethan Kaiser
+
+## Economics Research Portfolio
+
+I am an economist specializing in applied microeconomics, labor economics, and policy analysis using large public datasets.
+
+My work focuses on labor markets, local economic shocks, and social policy outcomes.
+
+---
+
+## Research Projects
+
+### College Closures and Local Labor Markets
+An analysis of how college closures affect local labor markets using a shift-share difference-in-differences design.
+
+### SNAP Purchasing Power Across Counties
+Research examining how the real purchasing power of SNAP benefits varies across urban and rural counties.
+
+### Occupational Licensing and Wage Effects
+Empirical analysis of licensing wage premiums using CPS data with fixed effects and selection tests.
+
+---
+
+## Tools
+
+Stata  
+LaTeX  
+ACS / CPS Data  
+Difference-in-Differences  
+Event Study Design
