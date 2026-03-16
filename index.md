@@ -16,6 +16,18 @@ An analysis of how college closures affect local labor markets using a shift-sha
 ### SNAP Purchasing Power Across Counties
 Research examining how the real purchasing power of SNAP benefits varies across urban and rural counties.
 
+**Paper**  
+[Download Paper](public%20sector%20final.pdf)
+
+**Presentation**  
+[View Slides](SNAP%20Presentation.pdf)
+
+**Replication Code**  
+[Stata Code](SnapSTATAdo.do)
+
+**LaTeX Source**  
+[Paper Source](SnapPaperCode.tex)
+
 ### Occupational Licensing and Wage Effects
 Empirical analysis of licensing wage premiums using CPS data with fixed effects and selection tests.
 
