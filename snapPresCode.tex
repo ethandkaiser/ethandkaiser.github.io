@@ -1,0 +1,265 @@
+\documentclass{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\title[SNAP Purchasing Power]{Are All SNAP Dollars Created Equal?\\
+Analysis of SNAP Purchasing Power Across Urban and Rural Counties}
+\author{Ethan Kaiser}
+\institute{University of South Florida}
+\date{December 2025}
+
+\begin{document}
+
+%-----------------------------------------------------------
+\begin{frame}
+\titlepage
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Motivation}
+\begin{itemize}
+    \item SNAP is the largest food assistance program in the U.S., functioning as an automatic stabilizer.
+    \item Existing literature focuses on:
+    \begin{itemize}
+        \item SNAP’s countercyclical enrollment during recessions.
+        \item Its role in stabilizing low-income households.
+    \end{itemize}
+    \item Much less is known about \textbf{geographic variation in purchasing power}.
+    \item Key question: \textbf{Does a SNAP dollar buy less in urban counties than rural counties?}
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Motivation: Rural vs Urban Context}
+\begin{itemize}
+    \item Rural and urban areas differ sharply in:
+    \begin{itemize}
+        \item Cost of living
+        \item Housing markets
+        \item Food access
+    \end{itemize}
+    \item USDA finds higher food insecurity in rural counties, but higher cost-of-living in urban counties.
+    \item If nominal benefits are fixed nationally, \textbf{real value may differ systematically across space}.
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Research Question}
+\centering
+\Large
+How does the \textbf{real purchasing power} of SNAP benefits vary with a county's level of urbanization?
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Data Overview}
+\begin{itemize}
+    \item SNAP issuance data (USDA, 2010)
+    \item Urban/rural population data (NHGIS 2010)
+    \item Median home value (NHGIS 2010)
+    \item Demographic controls (ACS 2010):
+    \begin{itemize}
+        \item Race composition
+        \item Poverty rate
+        \item Educational attainment
+        \item Median income
+        \item Employment/unemployment
+    \end{itemize}
+    \item Sample restricted to counties with population $\geq 65,000$
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Constructing Real SNAP}
+\begin{itemize}
+    \item Step 1: Compute SNAP per capita for each county.
+    \item Step 2: Adjust for cost of living using county median home value.
+    \item Real SNAP per capita:
+    \[
+        \text{RealSNAP}_i = \frac{\text{SNAP per capita}_i}{\text{Median Home Value}_i}
+    \]
+    \item Interpreted as a \textbf{relative purchasing power index}.
+    \item Higher values = SNAP dollars stretch further.
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Summary Statistics}
+\begin{center}
+\includegraphics[width=0.95\textwidth]{summarytable.png}
+\end{center}
+
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Visualization 1: Urban Share vs Nominal SNAP}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{nominalvsUrbanBin.png}
+\end{center}
+\begin{itemize}
+    \item Clear positive association.
+    \item Driven mostly by population scale.
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Visualization 2: Urban Share vs Real SNAP}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{realpercap.png}
+\begin{figure}
+    \centering
+\end{figure}
+\end{center}
+\begin{itemize}
+    \item Purchasing power decreases as urban share rises.
+    \item Reflects higher cost of living in urban counties.
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Empirical Specification}
+\[
+\text{RealSNAP}_i = \alpha + \beta \, \text{UrbanShare}_i + \gamma' X_i + \varepsilon_i
+\]
+\begin{itemize}
+    \item $X_i$: demographic + socioeconomic controls.
+    \item $\beta$ captures the \textbf{associational} relationship between urbanization and purchasing power.
+    \item Major concern: endogeneity due to omitted cost-of-living determinants and sample restriction.
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{OLS Estimates of Real SNAP per Capita}
+\tiny
+\centering
+
+\begin{tabular}{lcc}
+\hline
+ & (1) Real SNAP PC & (2) Real SNAP PC (FE) \\
+\hline
+Urban Share      & -0.0001514*** & -0.0000407 \\
+                 & (0.0000259)   & (0.0000297) \\
+Percent White    &               & -0.0000829 \\
+                 &               & (0.0001128) \\
+Percent Black    &               & -0.0000563 \\
+                 &               & (0.0001139) \\
+Percent BA Plus  &               & -0.0003467*** \\
+                 &               & (0.0000432) \\
+Poverty Rate     &               & 0.0008332*** \\
+                 &               & (0.0001218) \\
+Median Income    &               & 0.0000000120** \\
+                 &               & (0.00000000491) \\
+Employment Rate  &               & -0.0003795** \\
+                 &               & (0.0001741) \\
+Constant         & 0.0002413*** & 0.0001296 \\
+                 & (0.0000207)   & (0.0001895) \\
+\hline
+State FE         & No            & Yes \\
+Obs.             & 644           & 571 \\
+R-squared        & 0.0923        & 0.7477 \\
+\hline
+\end{tabular}
+
+\vspace{2mm}
+\scriptsize Robust SE in parentheses. * p$<$0.10, ** p$<$0.05, *** p$<$0.01.
+\end{frame}
+%-----------------------------------------------------------
+\begin{frame}{OLS Estimates of log Real SNAP per Capita}
+\tiny
+\centering
+
+\begin{tabular}{lcc}
+\hline
+ & (3) log Real SNAP PC & (4) log Real SNAP PC (FE) \\
+\hline
+Urban Share      & -1.37982***  & 0.2798247*** \\
+                 & (0.1825432)  & (0.1074497) \\
+Percent White    &              & -0.257931 \\
+                 &              & (0.4142353) \\
+Percent Black    &              & 0.6532828 \\
+                 &              & (0.3984258) \\
+Percent BA Plus  &              & -3.335995*** \\
+                 &              & (0.2074816) \\
+Poverty Rate     &              & 2.605094*** \\
+                 &              & (0.4515466) \\
+Median Income    &              & -0.00000212*** \\
+                 &              & (0.000000242) \\
+Employment Rate  &              & -2.223592*** \\
+                 &              & (0.6509056) \\
+Constant         & -8.220868*** & -8.658111*** \\
+                 & (0.1353132)  & (0.7373777) \\
+\hline
+State FE         & No           & Yes \\
+Obs.             & 644          & 571 \\
+R-squared        & 0.0880       & 0.9164 \\
+\hline
+\end{tabular}
+
+\vspace{2mm}
+\scriptsize Robust SE in parentheses. * p$<$0.10, ** p$<$0.05, *** p$<$0.01.
+\end{frame}
+%-----------------------------------------------------------
+\begin{frame}{Interpretation}
+\begin{itemize}
+    \item Nominal SNAP higher in urban counties → more beneficiaries.
+    \item After adjusting for cost of living, SNAP dollars stretch less in urban areas.
+    \item But results are \textbf{not robust}, sign-flipping after controls.
+    \item Limited variation in urban share due to sample restricts conclusions.
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Limitations}
+\begin{itemize}
+    \item Only counties with population $\geq 65,000$ → excludes rural America.
+    \item Single cross-section (2010) → cannot use FE at county level.
+    \item Housing value is an imperfect proxy for cost of living.
+    \item Omitted variable bias likely substantial.
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Future Research}
+\begin{itemize}
+    \item Panel data for all counties to allow:
+    \begin{itemize}
+        \item County fixed effects
+        \item State-by-year shocks
+        \item Better causal inference
+    \end{itemize}
+    \item DID design comparing rural vs urban counties during recessions.
+    \item Incorporate improved price indices (food prices, RPP, CPI local).
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Policy Implications}
+\begin{itemize}
+    \item SNAP benefits are uniform nationally → may disadvantage high-cost areas.
+    \item Potential reforms:
+    \begin{itemize}
+        \item Geographic benefit adjustments (similar to HUD Fair Market Rents)
+        \item Supplementary SNAP allotments in high-cost counties
+        \item Adjust benefits based on regional price parities or food-cost indices
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Conclusion}
+\begin{itemize}
+    \item SNAP dollars do not have equal purchasing power across counties.
+    \item Urban households face a de facto cost-of-living penalty.
+    \item Despite data limitations, results highlight meaningful spatial disparities.
+    \item Future work should focus on improving causal identification and cost-of-living measurement.
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------
+\begin{frame}{Thank You}
+\centering
+Questions?
+\end{frame}
+
+\end{document}
+

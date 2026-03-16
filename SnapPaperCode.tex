@@ -1,0 +1,269 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\title{Are all SNAP dollars Created Equal? An Analysis of SNAP benefits in Rural vs Urban Counties}
+\author{Ethan Kaiser}
+\date{December 2025}
+
+\begin{document}
+
+\maketitle
+\newpage
+\section{Introduction}
+
+Food insecurity is closely tied to local economic conditions, and the Supplemental Nutrition Assistance Program (SNAP) remains one of the United States’ most important tool for stabilizing the budgets of low-income households when living costs rise or labor markets weaken. My original research proposal highlighted this idea; SNAP serves as both a safety net for families facing hardship and a source of demand for local businesses, circulating dollars quickly through grocery stores and small retailers across the country. These stabilizing effects appear most notably during recessions as SNAP participation expands when unemployment rises and income falls (Hanson & Oliveira 2012)
+
+While prior research focuses heavily on SNAP's responsiveness during recessions and its specific role as a stabilizer in the economy, far less attention has been paid to how the value of SNAP benefits varies across different locations, specifically, across rural and urban counties. This is an important distinction as it tells us how people who need benefits actually are helped by the dollars they receive. Even if nominal benefit levels are constant nationwide, the effective purchasing power of those benefits depends on local prices, housing markets, and economic environments. In my initial proposal, I framed the research question around how SNAP stabilizes employment in rural versus urban counties during recessions. That question captures the spirit of the broader literature but once I began assembling county-level data, it became clear that a more feasible and informative approach was to examine geographic variation in SNAP purchasing power itself.
+
+This shift still closely aligns with my interest in the original topic. Being from a rural area and now living in Tampa, FL, I understand the key differences between where I was raised and urban areas. Research by the USDA highlights these differences showcasing that rural and urban areas experience significant differences in levels of food insecurity and therefore reliance on programs like SNAP. For example, rural areas are far more reliant on local spending while urban areas often face much higher costs of living(USDA ERS, Rural vs. Urban Food Security Report). Furthermore, research shows that SNAP's stabilizing effects were not uniform across space during the great recession. For example, Bitler and Hoynes (2016) document how SNAP helped cushion the blow of rising unemployment, while simulations from USDA ERS (2021) suggest that rural economies may receive larger per-dollar stimulus effects from SNAP spending.
+
+What remains unclear is the specific purchasing power SNAP benefits can actually provide. While USDA ERS (2021) did suggest rural economies are more stimulated by snap, the research didn't specifically mention how far a dollar of SNAP benefits can stretch in rural versus urban areas. 
+
+This project attempts to bridge that gap by examining how the real purchasing power of SNAP benefits varies with county urbanization. Using USDA 2010 county-level SNAP issuance data linked with housing-market indicators from IPUMS NHGIS, I construct a measure of Real SNAP purchasing power scaled to local housing values which act as a proxy for cost of living. This shifts the focus of my research from the stabilizing effects of the program to the true performance of SNAP. This is an important idea to consider when trying to understand how SNAP is able to act as an economic stabilizer in the US which has a large variation in local economic environments. 
+\section{Data}
+\begin{table}[H]
+\centering
+\caption{Summary Statistics}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccccc}
+\hline
+Variable & Mean & SD & Min & p25 & p50 & p75 \\
+\hline
+Real SNAP Per Capita & 0.0001266 & 0.0000911 & 0.00000501 & 0.0000594 & 0.0001085 & 0.0001765 \\
+Nominal SNAP & 5{,}280{,}438 & 10{,}300{,}000 & 1{,}539{,}288 & 2{,}422{,}187 & 4{,}720{,}625 & 1.37e7 \\
+Urban Share & 0.758 & 0.183 & 0.643 & 0.794 & 0.908 & 1.00 \\
+Percent White & 0.775 & 0.153 & 0.49 & 0.696 & 0.815 & 0.891 \\
+Percent Black & 0.126 & 0.131 & 0.031 & 0.083 & 0.181 & 0.72 \\
+Percent BA+ & 0.259 & 0.099 & 0.045 & 0.186 & 0.240 & 0.312 \\
+Poverty Rate & 0.154 & 0.058 & 0.03 & 0.116 & 0.151 & 0.189 \\
+Median Income & 49{,}934 & 13{,}388 & 19{,}083 & 40{,}828 & 47{,}028 & 55{,}216 \\
+Employment Rate & 0.891 & 0.032 & 0.81 & 0.872 & 0.895 & 0.916 \\
+Unemployment Rate & 0.108 & 0.032 & 0.02 & 0.085 & 0.106 & 0.128 \\
+\hline
+\end{tabular}}
+\end{table}
+
+
+Table 1 is the Summary Statistics of this research. My primary outcome variable of interest is Real SNAP Per Capita which is designed to approximate the purchasing power of SNAP benefits across counties after accounting for differences in costs of living within counties. In other words, it attempts to measure the real economic value of SNAP benefits. Rather than using a z-score which I did initially, I construct real SNAP by first calculating SNAP issuance per capita per county. Then, I divide SNAP benefits per capita by the median home value in each county. The median home value acts as a proxy for cost of living. This creates a normalized index of relative purchasing power per dollar of SNAP benefits issued. To illustrate, if counties A and B both receive 150 dollars in SNAP benefits and county A's median house price is double what county B's median house price is, county B's Real SNAP will be double that of county A, indicating a higher purchasing power. This gives a general idea of relative SNAP purchasing power per person. Higher values of Real SNAP Per Capita indicate a greater purchasing power and conversely, lower values indicate a lower purchasing power. It's also important to note that Real SNAP isn't a dollar amount, it is simply a relative, normalized measure that allows us to compare purchasing power across counties. While this median home value isn't perfect, it is the best available cost of living proxy based on my data set. Housing prices are often a very large portion of household budgets and strongly correlate with general cost of living and local wage. 
+
+Nominal SNAP is the raw dollar amount of SNAP issuance in each county. The data is from the USDA for the year 2010 in the months of January in July. It is the average benefits issued per county based on these two months. The variation here represents population size, difference economic needs, and program enrollment- not cost of living. Urban Share is my main independent variable which measures the share of the population in a county living in an urban area. The data is from 2010 ACS and the variable is measured by taking the county population in Urban areas divided by the total population of the county. As mentioned, only counties with populations of at least 65,000 are measured meaning the variation in the variable isn't necessarily representative of the entire population as we are mostly dealing with mid-to-large population counties where there is significant urbanization. 
+
+The demographic controls are relativity simple as I measure shares of white and black residents in a county, the share of county population with a bachelor's degree or higher, the poverty rate in a county, median income in a county, and the employment/unemployment rates. Each control is directly collapsed from individual-level ACS microdata. 
+
+The raw data has some interesting points that need to be highlighted. First, Real Snap per Capita ranges from very low (more expensive costs of living where SNAP buys less) to much higher values (areas where costs of living is lower and SNAP buys more). Additionally, nominal SNAP issuance varies by counties by millions of dollars implying large demographic differences between counties where some counties are far more reliant on the SNAP program. As mentioned above, Urban Share is high across the sample with a mean urban share of 76 percent. this is because of limitations with the ACS data used where only counties with populations of 65,000 or higher are observed. In terms of the demographic controls, we observe heterogenic difference in population characteristics. Race percentages vary widely implying racial diversity across different counties and educational attainment also has substantial variation emphasizing differences in human capital between counties. The same can be said for median income. 
+
+Lastly when discussing the raw data used in this analysis there are important limitations to keep in mind. The first is that only counties with populations of at least 65,000 residents are observed. This is because the NHGIS data used came from ACS tables that only report county-level values for counties that size. There are thousands of counties with populations less than 65,000 that are then excluded. This inherently implies that my sample is disproportionately urban/suburban making it not representative of all US counties even if it is representative of where the majority of people live however it does represent medium and large population counties as well as counties where SNAP participation is high enough to be reported consistently. This does effect the interpretation of Real SNAP because the cost of living variation isn't as extreme as it would be if truly rural counties were accounted for. This lack variation in Urban Share definitely affects my regression results as we will see in the results section.  
+
+The second major issue with my sample is that it only uses data from 2010 so this analysis only reflects conditions during 2010 and doesn't account for trends or long run relationships. Since the US was just coming out of the great recession in 2010, there are likely lingering effects of economic downtime prevalent in the sample like higher poverty rates, higher employment volatility, and possibly larger SNAP issuance in many counties. Furthermore, a single year cross-section dataset severely limits the ability to make causal inferences as well as make inferences about changes over time. It only allows me to view a snapshot of conditions within that year. 
+
+These limitations seriously hinder the external validity of this analysis. SNAP patterns may differ in economically "normal" years and housing market conditions may still have been unstable as they were recovering from the market crash. This combined with the the county-size restriction means my results are mainly informative about urban and suburban America immediately after recessions. 
+
+\subsection{Visualizations}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{nominalvsUrbanBin.png}
+    \caption{Urban Share vs. Nominal SNAP Issuance}
+    \label{fig:nominal_snap}
+\end{figure}
+
+To better understand the raw relationship between Urban Share of population in a county and SNAP benefits issued in a county I first created a bin-scatter plot of Urban Share against Nominal SNAP issuance. We see a clear and positive association between the two indicating that as counties become more urban, more SNAP dollars are issued within a county. Specifically, counties with a higher urban share of population receive much larger dollar amounts of SNAP benefits. Intuitively, this makes sense: the amount of SNAP dollars issued is tied to population as there are more people able to enroll so a higher population should equate to more SNAP issuance. More urban counties generally have a higher population and therefore more eligible households. However, this doesn't paint the full picture. It doesn't tell us how the people receiving these dollars benefit in terms of economic well being and purchasing power as a result of SNAP issuance.
+To better understand the true effectiveness of SNAP, we need to look into how Real SNAP changes as Urban Share increases. Figure 2 below plots just this. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{realpercap.png}
+    \caption{Urban Share vs. Real SNAP}
+    \label{fig:nominal_snap}
+\end{figure}
+As mentioned above, figure 2 uses a bin-scatter to plot Real Snap Per Capita against Urban shares within counties. We see that after adjusting for house prices, there is a clear negative relationship: as the urban share of a county's population increases, we see that Real SNAP per capita declines. So although more urban counties receive far more total SNAP issuance, the purchasing power of those dollars is much lower for the people receiving them when compared to individuals living in more rural areas. Housing tends to be more expensive in urban areas indicating a more expensive cost of living meaning SNAP dollars don't go as far in these areas. Overall this figure highlights the key idea that all SNAP dollars aren't equal: individuals in more urban areas essentially get less per dollar than an individual who receives the same dollar in a more rural area.
+
+\section{Empirical Method}
+
+\subsection{}{Baseline OLS Specification}
+
+I begin by estimating the following baseline OLS relationship:
+
+\begin{equation}
+    \text{RealSNAP}_i = \alpha + \beta \,\text{UrbanShare}_i + \gamma' X_i + \varepsilon_i
+\end{equation}
+
+In this baseline model, the dependent variable $\text{RealSNAP}_i$ measures the purchasing power of SNAP benefits in county $i$. Real Snap is constructed by dividing nominal per-capita SNAP benefits issued in county by the median home price in a county where the median home value is a proxy for cost of living. The main independent variable is $\text{UrbanShare}_i$ which represents the percentage of a county's population living in an urban area as defined by NHGIS. The coefficient on this variable, $\beta$, captures the magnitude of the estimated effect of urban share on Real SNAP. I also include a vector of county-level covariates $X_i$. These controls include demographic controls (percent white, percent black, and percent of adults with a bachelor's degree or higher), socioeconomic characteristics (poverty rate, median household income), and labor market indicators (employment rates).
+
+A major endogeneity concern in this setting arises from the fact that county-level “Urban Share” is not randomly assigned and is mechanically related to county size. Because my sample only includes counties with populations of at least 65,000, nearly all counties are substantially urban or suburban. Counties with very high urban shares tend to be large population centers with more complex housing markets, higher demand pressures, and stronger local economies. These factors directly influence housing prices which is the variable I used to construct Real SNAP purchasing power. However many of them cannot be fully controlled for with simple demographic controls. For example, urban counties differ in things like job access, labor market tightness, transportation reliance, retail availability, and local policy. My data accounts for none of these. 
+
+If these unobserved features both increase housing costs and correlate with Urban Share, then the OLS estimate of $\beta$ will be biased. This bias likely exaggerates the negative relationship between Urban Share and purchasing power simply because highly urban counties also tend to have expensive housing markets for reasons unrelated to SNAP or population composition. As a result, the OLS relationship estimated here should be interpreted strictly as associational rather than causal. 
+\section{Results, Limitations and Discussions for Future Research}
+
+\begin{table}[H]
+\centering
+\caption{OLS Estimates of Real SNAP per Capita (Levels)}
+\begin{tabular}{lcc}
+\hline\hline
+                    & (1) Real SNAP pc & (2) Real SNAP pc \\
+\hline
+Urban Share         & -0.0001514***    & -0.0000407       \\
+                    & (0.0000259)      & (0.0000297)      \\[4pt]
+
+Percent White       &                  & -0.0000829       \\
+                    &                  & (0.0001128)      \\[4pt]
+
+Percent Black       &                  & -0.0000563       \\
+                    &                  & (0.0001139)      \\[4pt]
+
+Percent BA Plus     &                  & -0.0003467***    \\
+                    &                  & (0.0000432)      \\[4pt]
+
+Poverty Rate        &                  & 0.0008332***     \\
+                    &                  & (0.0001218)      \\[4pt]
+
+Median Income       &                  & 0.00000000120**  \\
+                    &                  & (0.000000000491) \\[4pt]
+
+Employment Rate     &                  & -0.0003795**     \\
+                    &                  & (0.0001741)      \\[4pt]
+
+Constant            & 0.0002413***     & 0.0001296        \\
+                    & (0.0000207)      & (0.0001895)      \\[6pt]
+\hline
+State FE            & No               & Yes              \\
+Observations        & 644              & 571              \\
+R-squared           & 0.0923           & 0.7477           \\
+\hline\hline
+\multicolumn{3}{l}{\footnotesize Robust standard errors in parentheses.} \\
+\multicolumn{3}{l}{\footnotesize * p $<$ 0.10, ** p $<$ 0.05, *** p $<$ 0.01.} \\
+\end{tabular}
+\end{table}
+
+Table 2 showcases the results from the standard OLS regressions. In model one, Urban share has a coefficient of about -.00015 implying a negative association between urban share and SNAP per capita purchasing power. Specifically, a 10 percentage point increase in urban share is associated with a reduction in Real Snap per capita by .000015 dollars. This matches how the raw data moves in figures 1 and 2 above. This bivariate regression suggests SNAP dollars stretch less in urban areas. As mentioned, more urban counties tend to have higher costs of living as proxied by house prices. This higher cost of living reduces SNAP's purchasing power highlighting the issue that urban households dependent on SNAP experience a so-called cost-of-living penalty. As this model is bivariate, there is a large risk of omitted variable bias which becomes aparent when we get into the subsequent models.
+
+Model 2 adds the vector of county-level covariates and accounts for state fixed-effects which allows me to compare counties within each state. In this model, the main coefficient keeps its sign however the effect size drops significantly and loses its statistical significance. This suggests that after controlling for demographics and economic conditions, urban share no longer becomes a reliable predictor for SNAP purchasing power as the variable is defined. This indicates high levels of omitted variable bias in the baseline model which was obvious.
+
+Some controls are important here and are statistically significant at the 1 percent level. Education level as measured by the percent of the population with a bachelor's degree or higher has a negative effect indicating that more educated counties have less need for SNAP dollars. Poverty rates have a positive effect that is significant at the 1 percent level suggesting that that poorer counties receive more SNAP issuance and rely on it more heavily which is intuitive. Lastly, median income has a negative effect which could be explained by SNAP dependence decreasing as income rises.
+
+The main coefficient being insignificant when controlling for state fixed effects implies that much of the variation is between states not within-within a state. In future research, a panel data set including all counties especially those with populations less than 65,000 is needed to allow us to control for county level fixed effects which is probably where most of the expected variation lies.
+
+Table 3 below runs the same regressions but with logged Real SNAP per capita. I chose to log the main outcome variable as it makes the interpretation of the results more intuitive and helps reduce the influence of outliers. The baseline model (model 3) with no controls has a negative coefficient of around -1.38 that is significant at the 1 percent level. implying that a 1 percent increase in urban share within a county is associated with a -1.3 percent decrease in Real SNAP purchasing power as the variable is defined.
+
+When we add controls and State fixed effects  in model 4 we see very interesting results. The Urban share sign switches and becomes positive while and the coefficient becomes significant at the 1 percent level. After controlling for state differences and demographics, urban counties no longer appear to be disadvantages, in fact, more urban areas seem to have more SNAP purchasing power. The controls seem to have absorbed the cost of living pattern. Overall the log results are more sensitive to controls. Logging the dependent variable magnifies the proportional differences in SNAP purchasing power across counties. The sign switch on Urban Share when adding controls signifies that the 'urban penalty' mentioned when discussing table 2 is not robust suggesting that the negative association seen could've been driven by ommitted demographic characteristics instead of urbanization. 
+\begin{table}[H]
+\centering
+\caption{OLS Estimates of log Real SNAP per Capita}
+\begin{tabular}{lcc}
+\hline\hline
+                    & (3) log Real SNAP pc & (4) log Real SNAP pc \\
+\hline
+Urban Share         & -1.37982***          & 0.2798247***         \\
+                    & (0.1825432)          & (0.1074497)          \\[4pt]
+
+Percent White       &                      & -0.257931            \\
+                    &                      & (0.4142353)          \\[4pt]
+
+Percent Black       &                      & 0.6532828            \\
+                    &                      & (0.3984258)          \\[4pt]
+
+Percent BA Plus     &                      & -3.335995***         \\
+                    &                      & (0.2074816)          \\[4pt]
+
+Poverty Rate        &                      & 2.605094***          \\
+                    &                      & (0.4515466)          \\[4pt]
+
+Median Income       &                      & -0.0000212***        \\
+                    &                      & (0.00000242)         \\[4pt]
+
+Employment Rate     &                      & -2.223592***         \\
+                    &                      & (0.6509056)          \\[4pt]
+
+Constant            & -8.220868***         & -8.658111***         \\
+                    & (0.1353132)          & (0.7373777)          \\[6pt]
+\hline
+State FE            & No                   & Yes                  \\
+Observations        & 644                  & 571                  \\
+R-squared           & 0.0880               & 0.9164               \\
+\hline\hline
+\multicolumn{3}{l}{\footnotesize Robust standard errors in parentheses.} \\
+\multicolumn{3}{l}{\footnotesize * p $<$ 0.10, ** p $<$ 0.05, *** p $<$ 0.01.} \\
+\end{tabular}
+\end{table}
+
+Across all models, the findings depend on the specificaion used. specifically, the results are not robust across all specifications; Urban Share shows a strong negative assocaition in the most simple models but when controlls are added, the coefficient shrinks, loses significance, or even changes sign. This means that the relationship bewteen urban share and SNAP purchasing power is likely not structural. 
+
+It's important to also mention the extreme limitations of the data set used. I am missing around 2400 counties that have populations less than 65,000 meaning my sample is heavily skewed towards urban and suburban counties. We see no true rural variation implying that the relationship we observe is distorted. Also, because this data set is cross-sectional, I was not able to observe observations over time so I can not difference out time-invariant factors like historical poverty, long run economic trends and population density trends. Also, Real SNAP only relies on median home value as a proxy for cost of living. this means I'm ignoring key aspects of cost of living like food price variation, transportation costs, and local price shocks. 
+
+A panel data set of all counties and multiple years would solve many of these issues. I would be able to control for county level fixed-effects which would help to remove a large portion of omitted variable bias and time fixed-effects could also be used to remove national shocks. This type of data set would also allow me to use a Difference-in-Difference specification which could prove particularly useful in understanding how SNAP purchasing power responds in rural vs urban areas during economic downturns which was my original research idea. 
+
+A Difference-in-Difference model would be particularly useful in future research. Below is a basic (DID) model of the form
+
+\begin{equation}
+    RealSNAP_{it}
+    = \alpha_i 
+    + \delta_t
+    + \beta \left(Urban_i \times Recession_t\right)
+    + \gamma' X_{it}
+    + \varepsilon_{it},
+\end{equation}
+
+where $RealSNAP_{it}$ denotes real SNAP purchasing power in county $i$ and year $t$,
+$\alpha_i$ represents county fixed effects, $\delta_t$ are year fixed effects, $Urban_i$ is
+an indicator for whether a county is predominantly urban, and $Recession_t$ indicates
+years classified as recession periods (e.g., using NBER recession dates). The interaction
+term $Urban_i \times Recession_t$ captures the differential change in SNAP purchasing
+power in urban counties relative to rural counties during recession years. This specification would help to elevate the model from correlational to hopefully more causal as the evidence generated would be far more credible
+
+\section{Conclusions and Implications}
+
+This project was a small step in attempting to understand how SNAP benefits differ in rural versus urban areas. Specifically, it attempts to analyze how the purchasing power of SNAP benefits can vary between different economic conditions across the United States. Using publicly available data I constructed a Real SNAP per capita that aims to measure the purchasing power each dollar of SNAP benefit provides while adjusting for cost of living. The descriptive statistics show a negative relationship between urban share of population and SNAP purchasing power. Simply put, urban areas seem to receive less purchasing power per dollar of snap when compared to more rural areas. 
+The econometric analysis used emphasizes this trend however the results are not robust across all specifications and more in depth analysis must be done. The results imply that there are unobserved state level and county level factors affecting SNAP purchasing power rather than just urban share within a county. As such, the findings here should be interpreted as associational and not causal.
+
+Part of the lack of robustness can be attributed to the limitations with my dataset as well as the models used as I discussed earlier. The most prudent being the fact that the entire analysis depends on a single cross-section of counties with populations at or above 65,000. While this was not idea and what I originally had in mind, I think the current analysis does a good job at setting up future research on the topic. 
+
+Despite these limitations, my findings do highlight something of interest. SNAP dollars are often issued differently for different states but not counties within states. If future research were to show that purchasing power of SNAP dollars differs between counties within states then those in more expensive areas may face a disparity within how much they actually benefit from the program. Ultimately, this project demonstrates that differences in cost of living in areas as close as the next county over can impact the benefit of assistance programs to people who need it. 
+\newpage
+\begin{thebibliography}{99}
+
+\bibitem{BitlerHoynes2016}
+Bitler, M., \& Hoynes, H. (2016).
+\textit{The More Things Change, the More They Stay the Same? The Safety Net and Poverty in the Great Recession}.
+Journal of Labor Economics, 34(S1), S403–S444.
+
+\bibitem{HansonOliveira2012}
+Hanson, K., \& Oliveira, V. (2012).
+\textit{How Economic Conditions Affect Participation in USDA Nutrition Assistance Programs}.
+United States Department of Agriculture, Economic Research Service, Economic Information Bulletin No. 100.
+
+\bibitem{USDAFoodSecurity}
+United States Department of Agriculture, Economic Research Service (2014).
+\textit{Food Insecurity in Rural and Urban Households}.
+U.S. Department of Agriculture, Washington, D.C.
+
+\bibitem{CastnerHenke2015}
+Castner, L., \& Henke, J. (2015).
+\textit{Benefit Redemption Patterns in the Supplemental Nutrition Assistance Program (SNAP)}.
+United States Department of Agriculture, Food and Nutrition Service.
+
+\subsection*{Data Appendix}
+
+\bibitem{USDASNAP2010}
+United States Department of Agriculture, Food and Nutrition Service (2010).
+\textit{Supplemental Nutrition Assistance Program (SNAP) Issuance Data by County}.
+Administrative records accessed through the USDA SNAP Data System and Economic Research Service.
+Used to construct county-level nominal and per-capita SNAP measures.
+
+\bibitem{NHGISUrbanRural2010}
+IPUMS National Historical Geographic Information System (NHGIS) (2025).
+\textit{2010 Census Summary File 1: Urban and Rural Classification (Table P2, NHGIS Code H7W)}.
+University of Minnesota. Version 20.0. \url{https://doi.org/10.18128/D050.V20.0}.
+Used to compute county urban population shares.
+
+\bibitem{NHGISACS2010}
+IPUMS National Historical Geographic Information System (NHGIS) (2025).
+\textit{2010 ACS 1-Year Estimates: Race (B02001), Educational Attainment (B15003), Poverty Status (B17001),
+Median Household Income (B19013), Employment Status (B23001)}.
+University of Minnesota. Version 20.0. \url{https://doi.org/10.18128/D050.V20.0}.
+Used to construct demographic controls: race composition, BA attainment, poverty, median income, employment rate.
+
+\end{thebibliography}
+
+
+
+\end{document}
