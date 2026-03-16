@@ -26,7 +26,7 @@ Research examining how the real purchasing power of SNAP benefits varies across 
 [Stata Code](SnapSTATAdo.do)
 
 **LaTeX Sources**  
-[Paper Source](SnapPaperCode.tex)
+[Paper Source](SnapPaperCode.tex), 
 [Slide Source](snapPrescode.tex)
 
 ### Occupational Licensing and Wage Effects
