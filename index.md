@@ -23,7 +23,7 @@ An analysis of how college closures affect local labor markets using a shift-sha
 [Paper Source](CollegeClosurePdfCode.tex),
 [Slide Source](CollegeClosurePresCode.tex)
 
-**Replication Code**
+**Replication Code:** [Stata Code](collegeClosures.do)
 ### SNAP Purchasing Power Across Counties
 Research examining how the real purchasing power of SNAP benefits varies across urban and rural counties.
 
