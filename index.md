@@ -13,6 +13,17 @@ My work focuses on labor markets, local economic shocks, and social policy outco
 ### College Closures and Local Labor Markets
 An analysis of how college closures affect local labor markets using a shift-share difference-in-differences design.
 
+**Paper**
+[Download Paper](College%20closure%20shiftshare%20work.pdf)
+
+**Presentation**
+[View Slides](college%20closure%20shiftsharePres.pdf)
+
+**LaTex Sources**
+[Paper Source],(CollegeClosurePdfCode.tex),
+[Slide Source](CollegeClosurePresCode.tex)
+
+**Replication Code**
 ### SNAP Purchasing Power Across Counties
 Research examining how the real purchasing power of SNAP benefits varies across urban and rural counties.
 
