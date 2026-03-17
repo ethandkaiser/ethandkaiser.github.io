@@ -20,7 +20,7 @@ An analysis of how college closures affect local labor markets using a shift-sha
 [View Slides](college%20closure%20shiftsharePres.pdf)
 
 **LaTex Sources**
-[Paper Source],(CollegeClosurePdfCode.tex),
+[Paper Source](CollegeClosurePdfCode.tex),
 [Slide Source](CollegeClosurePresCode.tex)
 
 **Replication Code**
