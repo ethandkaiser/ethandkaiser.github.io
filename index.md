@@ -15,7 +15,7 @@ An analysis of how college closures affect local labor markets using a shift-sha
 
 **Paper**
 
-[Download Paper](college%20closure%20shiftshare%20work.pdf)
+[Shift-Share Analysis of College Closures](college%20closure%20shiftshare%20work.pdf)
 
 **Presentation**
 
