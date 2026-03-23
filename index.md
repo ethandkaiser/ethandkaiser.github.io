@@ -23,7 +23,7 @@ Research examining how the real purchasing power of SNAP benefits varies across 
 
 **Replication Code**  
 
-[Stata Code](SnapSTATAdo.do)
+[Stata Code](SnapSTATAdo%20(1).do.pdf)
 
 **LaTeX Sources**  
 
@@ -43,7 +43,7 @@ An analysis of how college closures affect local labor markets using a shift-sha
 
 **Replication Code** 
 
-[Stata Code](collegeclosures.do)
+[Stata Code](collegeclosures%20(1).pdf)
 
 **LaTex Sources**
 
