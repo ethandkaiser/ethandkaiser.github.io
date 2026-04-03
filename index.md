@@ -19,7 +19,7 @@ Research examining how the real purchasing power of SNAP benefits varies across 
 
 **Presentation**  
 
-[View Slides](SNAP%20Presentation.pdf)
+[View Slides](SnapPresentationReal.pdf)
 
 **Replication Code**  
 
