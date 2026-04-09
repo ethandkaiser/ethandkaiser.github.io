@@ -23,7 +23,7 @@ Research examining how the real purchasing power of SNAP benefits varies across 
 
 **Replication Code**  
 
-[Stata Code](SnapSTATAdo%20(1).do.pdf)
+[Stata Code](SnapCodeClean2pages.pdf)
 
 **LaTeX Sources**  
 
